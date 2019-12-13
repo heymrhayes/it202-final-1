@@ -21,7 +21,7 @@
         
         $("nav.mdc-list a.mdc-list-item").on("click", function(e) {
            console.log($(this))
-           let file = "page-content/" + $(this).attr("href").replace("#","") + ".html";
+           var file = "page-content/" + $(this).attr("href").replace("#","") + ".html";
            $("#content").load(file);
            drawer.open = false;
             
@@ -29,9 +29,10 @@
             
         });
         
+        //DIALOG
         $('[data-mdc-dialog-action="yes"]').on("click", function(e) {
-            let url = apiEndpoint + "transactions";
-            let requestBody = {
+            var url = apiEndpoint + "transactions";
+            var requestBody = {
                 "account": targetAccountId,
                 "symbol": $("#symbol").val(),
                 "shares": $("#shares").val(),

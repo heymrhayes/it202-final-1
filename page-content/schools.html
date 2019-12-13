@@ -10,6 +10,9 @@
   <span class="mdc-button__label">Search</span>
 </button>
 
+<h5>Filter by category:</h5>
+<input id="catInput" type="text" placeholder="category: ES, HS, MS">
+
 
 <div id="resultCount" class="mdc-typography--body1">
 
@@ -48,11 +51,15 @@
 
 
   let getSchools = () => {
-    let url = endpoint + "$limit=" + limit;
+    var entered = $("#catInput").val();  
+      
+    let url = endpoint + "primary_category=" + entered;
+    console.log(url);
 
     let divider = $("ul#listSchools .mdc-list-divider.template");
 
     $.get(url, (response) => {
+      $("ul#listSchools").append("Amount of responses: " + response.length);
       console.log(response);
       $.each(response, (i,v) => {
         // clone template
@@ -65,7 +72,9 @@
         dividerClone.removeClass("template");
 
         // set values
-        clone.find(".mdc-list-item__primary-text").text(v.long_name)
+        var texto = v.long_name + "....." + v.school_id + "....." + v.address;
+        console.log(texto);
+        clone.find(".mdc-list-item__primary-text").text(texto);
 
 
         // append to list
@@ -75,6 +84,11 @@
         $("ul#listSchools").append(clone);
 
       });
+        
+        
+        
+
+        
     });
   }
 
